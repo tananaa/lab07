@@ -20,8 +20,10 @@ if(BUILD_TESTS)
     enable_testing()
     find_package(GTest REQUIRED)
     
-    add_executable(check tests/test_account.cpp tests/test_transaction.cpp)
+    file(GLOB TEST_SOURCES tests/*.cpp)
+    add_executable(check ${TEST_SOURCES})
     target_link_libraries(check print GTest::gtest_main)
+    target_include_directories(check PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
     add_test(NAME check COMMAND check)
 endif()
 
