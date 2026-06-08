@@ -1,11 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
-
-include("cmake/HunterGate.cmake")
-HunterGate(
-    URL "https://github.com/cpp-pm/hunter/archive/v0.23.251.tar.gz"
-    SHA1 "5659b15dc0884d4b03dbd95710e6a1fa0fc3258d"
-)
-
+cmake_minimum_required(VERSION 3.10)
 project(print)
 
 set(PRINT_VERSION_MAJOR 0)
@@ -25,11 +18,10 @@ option(BUILD_TESTS "Build tests" OFF)
 
 if(BUILD_TESTS)
     enable_testing()
-    hunter_add_package(GTest)
-    find_package(GTest CONFIG REQUIRED)
+    find_package(GTest REQUIRED)
     
     add_executable(check tests/test_account.cpp tests/test_transaction.cpp)
-    target_link_libraries(check print GTest::main)
+    target_link_libraries(check print GTest::gtest_main)
     add_test(NAME check COMMAND check)
 endif()
 
